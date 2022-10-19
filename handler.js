@@ -11,7 +11,7 @@ app.post("/", post.create.bind(post));
 app.put("/:id", post.update.bind(post));
 app.delete("/:id", post.delete.bind(post));
 
-let cachedDb = null; //espaço de memória para armazenar o bd
+let cachedDb = null; //espaço de memória para armazenar o banco de dados
 const uri = process.env.MONGO;
 
 module.exports.handler = serverless(

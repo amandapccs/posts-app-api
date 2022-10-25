@@ -51,7 +51,7 @@ class PostController {
         res.status(StatusCode.BAD_REQUEST).json("Invalid JSON");
         return;
       }
-      const post = await this.service.findByIdAndUpdate(id, JSON.parse(rawBody));
+      const post = await this.service.update(id, JSON.parse(rawBody));
       res.status(StatusCode.OK).json(post);
     } catch (error) {
       res.status(StatusCode.INTERNAL_SERVER_ERROR).json(error);
@@ -61,7 +61,7 @@ class PostController {
   async delete(req, res) {
     try {
       const { id } = req.params;
-      const post = await this.service.findByIdAndDelete(id);
+      const post = await this.service.delete(id);
       res.status(StatusCode.OK).json(post);
     } catch (error) {
       res.status(StatusCode.INTERNAL_SERVER_ERROR).json(error);

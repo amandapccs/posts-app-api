@@ -1,6 +1,6 @@
 const { fakePosts } = require("./fake.post");
 
-const fakePostRepository = {
+const fakePostService = {
     getAll: () => Promise.resolve(fakePosts),
     getById: () => Promise.resolve(fakePosts[0]),
     create: () => Promise.resolve(fakePosts[0]),
@@ -8,4 +8,4 @@ const fakePostRepository = {
     delete: () => Promise.resolve(fakePosts[0]),
 }
 
-module.exports = { fakePostRepository }
+module.exports = { fakePostService }

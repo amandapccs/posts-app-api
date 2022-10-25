@@ -5,7 +5,7 @@ const fakePostModel = {
   findById: () => Promise.resolve(fakePosts[0]),
   create: () => Promise.resolve(fakePosts[0]),
   findByIdAndUpdate: () => Promise.resolve(fakePosts[0]),
-  findByIdAndDelete: () => Promise.resolve(fakePosts[0]),
+  findByIdAndDelete: () => Promise.resolve(),
 };
 
 module.exports = { fakePostModel };

@@ -13,12 +13,15 @@ describe("PostController", () => {
     it("should return all posts", async () => {
       await postController.getAll(req, res);
       expect(res.json).toHaveBeenCalledWith(fakePosts);
-      // expect(res.status).toBe(200);
     });
     it("should call PostService.getAll method", () => {
       jest.spyOn(fakePostService, "getAll");
       postController.getAll(req, res);
       expect(fakePostService.getAll).toHaveBeenCalled();
+    });
+    it("should return status code 200", async () => {
+      await postController.getAll(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
     });
   });
 
@@ -32,6 +35,10 @@ describe("PostController", () => {
       jest.spyOn(fakePostService, "getById");
       await postController.getById(req, res);
       expect(fakePostService.getById).toHaveBeenCalled();
+    });
+    it("should return status code 200", async () => {
+      await postController.getById(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
     });
   });
 
@@ -47,6 +54,16 @@ describe("PostController", () => {
       await postController.create(req, res);
       expect(fakePostService.create).toHaveBeenCalled();
     });
+    it("should return status code 201", async () => {
+      await postController.create(req, res);
+      expect(res.status).toHaveBeenCalledWith(201);
+    });
+    it("shouldn't create a post if the body is not in JSON format", async () => {
+      req.apiGateway.event.body = "Invalid JSON";
+      await postController.create(req, res);
+      expect(res.json).toHaveBeenCalledWith("Invalid JSON");
+      expect(res.status).toHaveBeenCalledWith(400);
+    });
   });
 
   describe("update", () => {
@@ -61,6 +78,16 @@ describe("PostController", () => {
       await postController.update(req, res);
       expect(fakePostService.update).toHaveBeenCalled();
     });
+    it("should return status code 200", async () => {
+      await postController.update(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
+    });
+    it("shouldn't update a post if the body is not in JSON format", async () => {
+      req.apiGateway.event.body = "Invalid JSON";
+      await postController.update(req, res);
+      expect(res.json).toHaveBeenCalledWith("Invalid JSON");
+      expect(res.status).toHaveBeenCalledWith(400);
+    });
   });
 
   describe("delete", () => {
@@ -73,6 +100,10 @@ describe("PostController", () => {
       jest.spyOn(fakePostService, "delete");
       postController.delete(req, res);
       expect(fakePostService.delete).toHaveBeenCalled();
+    });
+    it("should return status code 200", async () => {
+      await postController.delete(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
     });
   });
 });

@@ -7,7 +7,6 @@ const postSchema = new Schema({
   },
   content: {
     type: [String],
-    required: true,
   },
   insertedAt: {
     type: Date,

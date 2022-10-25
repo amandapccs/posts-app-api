@@ -1,7 +1,7 @@
 const { describe, it, expect } = global;
 const { fakePostModel } = require('../__mocks__/fake.post.model');
 const { PostRepository } = require('./post.repository');
-const { fakePosts } = require('../__mocks__/fake.post');
+const { fakePosts, fakeId } = require('../__mocks__/fake.post');
 
 const postRepository = new PostRepository(fakePostModel);
 
@@ -16,6 +16,10 @@ describe('PostRepository Test', () => {
       const posts = await postRepository.getAll();
       expect(posts).toEqual([]);
     });
+    it('should return an array', async () => {
+      const posts = await postRepository.getAll();
+      expect(Array.isArray(posts)).toBe(true);
+    });
     it('should call PostModel.find method', () => {
       jest.spyOn(fakePostModel, 'find');
       postRepository.getAll();
@@ -28,6 +32,14 @@ describe('PostRepository Test', () => {
       const post = await postRepository.getById(fakePosts[0]);
       expect(post).toEqual(fakePosts[0]);
     });
+    it("should return an object with the correct keys", async () => {
+      const post = await postRepository.getById(fakePosts[0]);
+      expect(post).toHaveProperty("id");
+      expect(post).toHaveProperty("title");
+      expect(post).toHaveProperty("content");
+      expect(post).toHaveProperty("insertedAt");
+      expect(post).toHaveProperty("updatedAt");
+    })
     it('should call PostModel.findById method', () => {
       jest.spyOn(fakePostModel, 'findById');
       postRepository.getById(fakePosts[0]);
@@ -40,7 +52,7 @@ describe('PostRepository Test', () => {
       const post = await postRepository.create(fakePosts[0]);
       expect(post).toEqual(fakePosts[0]);
     });
-    it('should call PostModel.create method', () => {
+    it('should call PostModel.create method', async () => {
       jest.spyOn(fakePostModel, 'create');
       postRepository.create(fakePosts[0]);
       expect(fakePostModel.create).toHaveBeenCalled();
@@ -49,24 +61,24 @@ describe('PostRepository Test', () => {
 
   describe('update', () => {
     it('should update a post', async () => {
-      const post = await postRepository.update(fakePosts[0]);
+      const post = await postRepository.update(fakeId, fakePosts[0].content);
       expect(post).toEqual(fakePosts[0]);
     });
     it('should call PostModel.findByIdAndUpdate method', () => {
       jest.spyOn(fakePostModel, 'findByIdAndUpdate');
-      postRepository.update(fakePosts[0]);
+      postRepository.update(fakeId, fakePosts[0].content);
       expect(fakePostModel.findByIdAndUpdate).toHaveBeenCalled();
     });
   });
 
   describe('delete', () => {
     it('should delete a post', async () => {
-      const post = await postRepository.delete(fakePosts[0]);
-      expect(post).toEqual(fakePosts[0]);
+      const post = await postRepository.delete(fakeId);
+      expect(post).toBe(undefined);
     });
     it('should call PostModel.findByIdAndDelete method', () => {
       jest.spyOn(fakePostModel, 'findByIdAndDelete');
-      postRepository.delete(fakePosts[0]);
+      postRepository.delete(fakeId);
       expect(fakePostModel.findByIdAndDelete).toHaveBeenCalled();
     });
   });

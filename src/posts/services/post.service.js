@@ -1,4 +1,5 @@
 const { Types } = require('mongoose');
+const { invalidPostId, promisePostError, validatePost } = require('../middlewares/post.validation');
 
 class PostService {
   constructor(repository) {
@@ -10,57 +11,61 @@ class PostService {
       const posts = await this.repository.getAll();
       return posts;
     } catch (error) {
-      throw new Error(error);
+      promisePostError(error);
     }
   }
 
   async getById(id) {
     if (!Types.ObjectId.isValid(id)) {
-      throw new Error('Invalid ID');
+      return invalidPostId(id);
     }
 
     try {
       const post = await this.repository.getById(id);
       return post;
     } catch (error) {
-      throw new Error(error);
+      promisePostError(error);
     }
   }
 
   async create(post) {
     try {
+      const validatedPost = validatePost(post);
+      if (validatedPost) return validatedPost;
+  
       const createdPost = await this.repository.create(post);
       return createdPost;
     } catch (error) {
-      throw new Error(error);
+      promisePostError(error);
     }
   }
 
   async update(id, post) {
     if (!Types.ObjectId.isValid(id)) {
-      throw new Error('Invalid ID');
+      return invalidPostId(id);
     }
-
-    // fazer validação do post aqui com o dto
-
+    
     try {
+      const validatedPost = validatePost(post);
+      if (validatedPost) return validatedPost;
+
       const updatedPost = await this.repository.update(id, post);
       return updatedPost;
     } catch (error) {
-      throw new Error(error);
+      promisePostError(error);
     }
   }
 
   async delete(id) {
     if (!Types.ObjectId.isValid(id)) {
-      throw new Error('Invalid ID');
+      return invalidPostId(id);
     }
 
     try {
       const deletedPost = await this.repository.delete(id);
       return deletedPost;
     } catch (error) {
-      throw new Error(error);
+      promisePostError(error);
     }
   }
 }

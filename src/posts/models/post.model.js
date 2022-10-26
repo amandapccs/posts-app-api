@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const postSchema = new Schema({
   title: {
-    type: String,
+    type: [String],
     required: true,
   },
   content: {
@@ -15,7 +15,7 @@ const postSchema = new Schema({
   updatedAt: {
     type: [Date],
   },
-});
+}, { versionKey: false });
 
 const PostModel = model('Post', postSchema);
 

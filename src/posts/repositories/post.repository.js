@@ -23,6 +23,7 @@ class PostRepository {
   async update(id, post) {
     const updatedPost = this.model.findByIdAndUpdate(id, {
       $push: {
+        title: post.title,
         content: post.content,
         updatedAt: new Date(),
       },

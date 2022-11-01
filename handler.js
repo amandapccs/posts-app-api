@@ -4,6 +4,25 @@ require('dotenv').config();
 const serverless = require("serverless-http");
 const express = require("express");
 const app = express();
+const cors = require('cors');
+
+app.use(cors());
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+//   res.header("Access-Control-Allow-Credentials", "true");
+//   res.header("Access-Control-Max-Age", "3600");
+//   res.header("Access-Control-Expose-Headers", "Content-Length");
+//   res.header(
+//     "Access-Control-Request-Headers",
+//     "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 app.get("/", post.getAll.bind(post));
 app.get("/:id", post.getById.bind(post));

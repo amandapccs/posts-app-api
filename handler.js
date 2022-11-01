@@ -1,4 +1,4 @@
-const { post } = require('./src/posts/factories/post.factory');
+const { post } = require('././src/posts/factories/post.factory');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const serverless = require("serverless-http");

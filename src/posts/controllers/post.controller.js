@@ -1,5 +1,5 @@
-const { StatusCode } = require("../../utils/status.code");
-const { isJson } = require("../../utils/json.validator");
+const { StatusCode } = require("./../../utils/status.code");
+const { isJson } = require("./../../utils/json.validator");
 
 class PostController {
   constructor(service) {
@@ -21,13 +21,15 @@ class PostController {
 
   async create(req, res) {
     const rawBody = req.apiGateway.event.body;
+    console.log('rawBody ---->',rawBody);
+    const isBodyJson = isJson(rawBody);
+    console.log('esse é o req.body ---->', req);
 
-    if (!isJson(rawBody)) {
-      res.status(StatusCode.BAD_REQUEST).json("Invalid JSON");
-      return;
-    }
+    const body = isBodyJson ? JSON.parse(rawBody) : rawBody;
+    console.log('body ------>', body);
 
-    const post = await this.service.create(JSON.parse(rawBody));
+    const post = await this.service.create(body);
+    console.log('post ------>', post);
     if ('validationError' in post) return res.status(post.validationError.status).json({ message: post.validationError.message });
     
     return res.status(StatusCode.CREATED).json(post);
@@ -35,14 +37,10 @@ class PostController {
 
   async update(req, res) {
     const { id } = req.params;
-    const rawBody = req.apiGateway.event.body;
+    const isBodyJson = isJson(rawBody);
+    const body = isBodyJson ? JSON.parse(rawBody) : rawBody;
 
-    if (!isJson(rawBody)) {
-      res.status(StatusCode.BAD_REQUEST).json("Invalid JSON");
-      return;
-    }
-
-    const post = await this.service.update(id, JSON.parse(rawBody));
+    const post = await this.service.update(id, body);
     if ('validationError' in post) return res.status(post.validationError.status).json({ message: post.validationError.message });
 
     return res.status(StatusCode.OK).json(post);

@@ -1,7 +1,7 @@
 const { describe, it, expect } = global;
-const { fakePostModel } = require('../__mocks__/fake.post.model');
-const { PostRepository } = require('./post.repository');
-const { fakePosts, fakeId } = require('../__mocks__/fake.post');
+const { fakePostModel } = require('./../__mocks__/fake.post.model');
+const { PostRepository } = require('././post.repository');
+const { fakePosts, fakeId } = require('./../__mocks__/fake.post');
 
 const postRepository = new PostRepository(fakePostModel);
 

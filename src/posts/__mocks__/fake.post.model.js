@@ -1,4 +1,4 @@
-const { fakePosts } = require('../__mocks__/fake.post');
+const { fakePosts } = require('./../__mocks__/fake.post');
 
 const fakePostModel = {
   find: () => Promise.resolve(fakePosts),

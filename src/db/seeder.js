@@ -1,4 +1,4 @@
-const { PostModel } = require('../posts/models/post.model');
+const { PostModel } = require('./../posts/models/post.model');
 require('dotenv').config();
 const mongoose = require('mongoose');
 

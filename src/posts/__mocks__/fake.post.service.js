@@ -1,4 +1,4 @@
-const { fakePosts } = require("./fake.post");
+const { fakePosts } = require("././fake.post");
 
 const fakePostService = {
     getAll: () => Promise.resolve(fakePosts),

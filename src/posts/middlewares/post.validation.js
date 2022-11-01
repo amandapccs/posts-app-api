@@ -1,4 +1,4 @@
-const { StatusCode } = require("../../utils/status.code");
+const { StatusCode } = require("./../../utils/status.code");
 
 function validateTitle(title) {
   if (!title || title === '') {

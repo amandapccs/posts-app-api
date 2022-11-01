@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "invoke": "serverless invoke local --function handler",
+    "local": "serverless offline",
     "seed": "node ./src/db/seeder.js",
     "test": "jest",
     "coverage": "npx jest --coverage"

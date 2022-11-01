@@ -1,8 +1,8 @@
-const { mockResponse, mockRequest } = require("../__mocks__/fake.post.routes");
-const { fakePostService } = require("../__mocks__/fake.post.service");
-const { PostController } = require("./post.controller");
+const { mockResponse, mockRequest } = require("./../__mocks__/fake.post.routes");
+const { fakePostService } = require("./../__mocks__/fake.post.service");
+const { PostController } = require("././post.controller");
 const { describe, it, expect } = global;
-const { fakeId, fakePosts } = require("../__mocks__/fake.post");
+const { fakeId, fakePosts } = require("./../__mocks__/fake.post");
 
 const postController = new PostController(fakePostService);
 const req = mockRequest();

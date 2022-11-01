@@ -1,5 +1,5 @@
 const { Types } = require('mongoose');
-const { invalidPostId, promisePostError, validatePost } = require('../middlewares/post.validation');
+const { invalidPostId, promisePostError, validatePost } = require('./../middlewares/post.validation');
 
 class PostService {
   constructor(repository) {

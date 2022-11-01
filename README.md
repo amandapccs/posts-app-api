@@ -32,7 +32,7 @@ A estrutura de pastas do projeto é explicada a seguir:
 | **src/middlewares**           | Contém funções de validação de "title" e "content" recebidos das requisições, assim como função para retornar erros de Promise.  |
 | **src/models**      | Contém o Schema para a model de posts e cria Model da aplicação. |
 | **src/repositories**         | Contém classe PostRepository: repositório com os métodos getAll, getById, create, update e delete.    |
-| package.json             | Contains npm dependencies as well as [build scripts](#what-if-a-library-isnt-on-definitelytyped)                              | **src/services**     | Contém classe PostService: serviço com os métodos getAll, getById, create, update e delete.
+| package.json             | Contém todas as dependências instaladas assim como os scripts da aplicação                             | **src/services**     | Contém classe PostService: serviço com os métodos getAll, getById, create, update e delete.
 | **src/utils**              | Contém 3 arquivos: 1. json.validator.js para validar JSONs, 2. status.code.js para concentrar os status e mensagens da aplicação. 3. testes de status.code.js                                             |
 | **serverless.yml**         | Declara o serviço serverless, define o cloud provider (AWS) e funções e eventos a serem executados no deploy     |
 
@@ -69,6 +69,12 @@ Ou, para realizar o deploy:
 serverless deploy
 ```
 
+### Rodando os testes
+Para executar os testes, rode o script:
+```
+npm test
+```
+
 ## Como usar os endpoints
 | Endpoint | Input |
 | ------------------------ | --------------------------------------------------------------------------------------------- |
@@ -77,5 +83,4 @@ serverless deploy
 | POST /                  | Necessário informar JSON válido (exemplo: { "title": "sua publicação", "content": "conteúdo dessa publicação"}), retornará a postagem criada. Observação: a chave "content" não é obrigatória para criar postagem.                              |
 | PUT /:id         | Necessário indicar id válido nos parâmetros da rota e qual chave deseja alterar (title, content).             |
 | DELETE /:id         | Necessário indicar id válido nos parâmetros da rota, retorna post excluido.             |
-
 

@@ -5,8 +5,10 @@ const serverless = require("serverless-http");
 const express = require("express");
 const app = express();
 const cors = require('cors');
+const helmet = require('helmet');
 
 app.use(cors({ origin: true }));
+app.use(helmet());
 // app.use(function (req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
 //   res.header(

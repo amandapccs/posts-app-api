@@ -9,22 +9,6 @@ const helmet = require('helmet');
 
 app.use(cors({ origin: true }));
 app.use(helmet());
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-//   res.header("Access-Control-Allow-Credentials", "true");
-//   res.header("Access-Control-Max-Age", "3600");
-//   res.header("Access-Control-Expose-Headers", "Content-Length");
-//   res.header(
-//     "Access-Control-Request-Headers",
-//     "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
-//   );
-//   next();
-// });
 
 app.get("/", post.getAll.bind(post));
 app.get("/:id", post.getById.bind(post));
@@ -49,6 +33,13 @@ module.exports.handler = serverless(
       }
 
       await cachedDb;
+    },
+    response: async (response, event, context) => {
+      return {
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+      }
     },
   }
 );

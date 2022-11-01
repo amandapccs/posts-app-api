@@ -10,7 +10,7 @@ functions:
     handler: handler.handler
     events:
       - httpApi: "*"
-        cors: { origin: true }
+        cors: true
 
 plugins:
   - serverless-offline

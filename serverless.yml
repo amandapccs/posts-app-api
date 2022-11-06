@@ -3,6 +3,9 @@ frameworkVersion: "3"
 
 provider:
   name: aws
+  httpApi:
+    metrics: true
+    cors: true
   runtime: nodejs14.x
 
 functions:
@@ -10,7 +13,22 @@ functions:
     handler: handler.handler
     events:
       - httpApi: "*"
-        cors: true
+        cors:
+          allowedOrigins:
+            - https://posts-app-cyan.vercel.app/
+            - https://posts-470uh2cz5-amandapccs.vercel.app/
+            - https://posts-a39jer5w6-amandapccs.vercel.app/
+            - http://
+            - https://
+          allowedHeaders:
+            - Authorization
+          allowedMethods:
+            - GET
+            - POST
+            - DELETE
+            - PUT
+          allowCredentials: true
+          maxAge: 3600
 
 plugins:
   - serverless-offline

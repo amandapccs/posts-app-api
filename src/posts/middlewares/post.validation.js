@@ -50,7 +50,7 @@ function validateContent(content) {
     }
   };
 
-  if (content.length > 500 || content.length < 1) {
+  if (content.length > 300 || content.length < 1) {
     return {
       validationError: {
         message: 'Content must be less than 500 characters',
@@ -83,10 +83,10 @@ function validatePost(post) {
 function promisePostError(error) {
   return {
     promiseError: {
-      message: error,
+      message: error.message,
       status: StatusCode.INTERNAL_SERVER_ERROR,
     },
   };
 }
 
-module.exports = { validatePost, invalidPostId, promisePostError };
+module.exports = { validateTitle, validateContent, validatePost, invalidPostId, promisePostError };

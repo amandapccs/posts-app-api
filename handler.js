@@ -4,10 +4,8 @@ require('dotenv').config();
 const serverless = require("serverless-http");
 const express = require("express");
 const app = express();
-const cors = require('cors');
 const helmet = require('helmet');
 
-app.use(cors({ origin: true }));
 app.use(helmet());
 
 app.get("/", post.getAll.bind(post));
@@ -33,13 +31,6 @@ module.exports.handler = serverless(
       }
 
       await cachedDb;
-    },
-    response: async (response, event, context) => {
-      return {
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-      }
     },
   }
 );

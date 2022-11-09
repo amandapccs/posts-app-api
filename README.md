@@ -80,6 +80,14 @@ Para executar os testes, rode o script:
 ```
 npm test
 ```
+Para visualizar a cobertura de testes da aplicação, use o script:
+```
+npm run coverage
+```
+
+### Quantidade de testes realizados e cobertura da aplicação:
+![E2iF52f](https://user-images.githubusercontent.com/97243572/200716466-eee74c7e-781d-4d9a-8232-e8798d3e1af1.png)
+
 
 ## Como usar os endpoints
 | Endpoint | Input |
@@ -90,3 +98,6 @@ npm test
 | PUT /:id         | Necessário indicar id válido nos parâmetros da rota e qual chave deseja alterar (title, content).             |
 | DELETE /:id         | Necessário indicar id válido nos parâmetros da rota, retorna post excluido.             |
 
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[coverage-screenshot]: https://i.imgur.com/E2iF52f.png

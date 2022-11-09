@@ -21,7 +21,7 @@ class PostRepository {
   }
 
   async update(id, post) {
-    const updatedPost = this.model.findByIdAndUpdate(id, {
+    const updatedPost = await this.model.findByIdAndUpdate(id, {
       $push: {
         title: post.title,
         content: post.content,
@@ -35,7 +35,7 @@ class PostRepository {
   }
 
   async delete(id) {
-    const deletePost = this.model.findByIdAndDelete(id);
+    const deletePost = await this.model.findByIdAndDelete(id);
     if (deletePost === null) {
       return {};
     }

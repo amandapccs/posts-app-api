@@ -11,7 +11,7 @@ class PostService {
       const posts = await this.repository.getAll();
       return posts;
     } catch (error) {
-      promisePostError(error);
+      return promisePostError(error);
     }
   }
 
@@ -24,7 +24,7 @@ class PostService {
       const post = await this.repository.getById(id);
       return post;
     } catch (error) {
-      promisePostError(error);
+      return promisePostError(error);
     }
   }
 
@@ -36,7 +36,7 @@ class PostService {
       const createdPost = await this.repository.create(post);
       return createdPost;
     } catch (error) {
-      promisePostError(error);
+      return promisePostError(error);
     }
   }
 
@@ -52,7 +52,7 @@ class PostService {
       const updatedPost = await this.repository.update(id, post);
       return updatedPost;
     } catch (error) {
-      promisePostError(error);
+      return promisePostError(error);
     }
   }
 
@@ -65,7 +65,7 @@ class PostService {
       const deletedPost = await this.repository.delete(id);
       return deletedPost;
     } catch (error) {
-      promisePostError(error);
+      return promisePostError(error);
     }
   }
 }

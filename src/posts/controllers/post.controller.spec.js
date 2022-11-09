@@ -7,6 +7,7 @@ const { fakeId, fakePosts } = require("./../__mocks__/fake.post");
 const postController = new PostController(fakePostService);
 const req = mockRequest();
 const res = mockResponse();
+const mockInvalidIdResponse = { validationError: { message: "Post not found", status: 404 } }
 
 describe("PostController", () => {
   describe("getAll", () => {
@@ -39,6 +40,12 @@ describe("PostController", () => {
     it("should return status code 200", async () => {
       await postController.getById(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
+    });
+    it("should return status code 404 if the post does not exist", async () => {
+      req.params.id = "wrongId";
+      jest.spyOn(fakePostService, 'getById').mockImplementationOnce(() => Promise.resolve(mockInvalidIdResponse));
+      await postController.getById(req, res);
+      expect(res.status).toHaveBeenCalledWith(404);
     });
   });
 
@@ -104,6 +111,12 @@ describe("PostController", () => {
     it("should return status code 200", async () => {
       await postController.delete(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
+    });
+    it("should return status code 404 if the post does not exist", async () => {
+      req.params.id = "wrongId";
+      jest.spyOn(fakePostService, 'delete').mockImplementationOnce(() => Promise.resolve(mockInvalidIdResponse));
+      await postController.delete(req, res);
+      expect(res.status).toHaveBeenCalledWith(404);
     });
   });
 });

@@ -45,6 +45,11 @@ describe('PostRepository Test', () => {
       postRepository.getById(fakePosts[0]);
       expect(fakePostModel.findById).toHaveBeenCalled();
     });
+    it('should return an empty object if the id does not exist', async () => {
+      jest.spyOn(fakePostModel, 'findById').mockImplementationOnce(() => Promise.resolve(null));
+      const post = await postRepository.getById('fakeId');
+      expect(post).toEqual({});
+    });
   });
 
   describe('create', () => {
@@ -69,6 +74,11 @@ describe('PostRepository Test', () => {
       postRepository.update(fakeId, fakePosts[0].content);
       expect(fakePostModel.findByIdAndUpdate).toHaveBeenCalled();
     });
+    it('should return an empty object if it cannot update', async () => {
+      jest.spyOn(fakePostModel, 'findByIdAndUpdate').mockImplementationOnce(() => Promise.resolve(null));
+      const post = await postRepository.update('invalidId', fakePosts[0].content);
+      expect(post).toEqual({});
+    });
   });
 
   describe('delete', () => {
@@ -80,6 +90,11 @@ describe('PostRepository Test', () => {
       jest.spyOn(fakePostModel, 'findByIdAndDelete');
       postRepository.delete(fakeId);
       expect(fakePostModel.findByIdAndDelete).toHaveBeenCalled();
+    });
+    it('should return an empty object if it cannot delete', async () => {
+      jest.spyOn(fakePostModel, 'findByIdAndDelete').mockImplementationOnce(() => Promise.resolve(null));
+      const post = await postRepository.delete('invalidId');
+      expect(post).toEqual({});
     });
   });
 });

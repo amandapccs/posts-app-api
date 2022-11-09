@@ -25,6 +25,14 @@ describe("PostService", () => {
       postService.getAll();
       expect(fakePostRepository.getAll).toHaveBeenCalled();
     });
+    it("should send an error message in catch sentence", async () => {
+      jest.spyOn(fakePostRepository, "getAll").mockImplementationOnce(() => { throw new Error("Error") });
+      const post = await postService.getAll();
+      console.log('---->', post);
+      expect(post).toEqual({
+        promiseError: { message: "Error", status: 500 },
+      });
+    });
   });
 
   describe("getById", () => {
@@ -44,14 +52,21 @@ describe("PostService", () => {
       expect(post).toHaveProperty("content");
       expect(post).toHaveProperty("insertedAt");
       expect(post).toHaveProperty("updatedAt");
-    })
-    // it("should send an error message in catch sentence", async () => {
-    //   jest.spyOn(fakePostRepository, "getById").mockRejectedValueOnce("Error");
-    //   const post = await postService.getById(fakeId);
-    //   expect(post).toEqual({
-    //     promiseError: { error: "Error", message: "Promise Error" },
-    //   });
-    // });
+    });
+    it("should not find a post if the id does not exist", async () => {
+      const post = await postService.getById('wrongId');
+      expect(post).toEqual({ validationError: {
+      message: `Post with id wrongId does not exist`,
+      status: 404,
+    },});
+    });
+    it("should send an error message in catch sentence", async () => {
+      jest.spyOn(fakePostRepository, "getById").mockImplementationOnce(() => { throw new Error("Error") });
+      const post = await postService.getById(fakeId);
+      expect(post).toEqual({
+        promiseError: { message: "Error", status: 500 },
+      });
+    });
   });
 
   describe("create", () => {
@@ -92,13 +107,22 @@ describe("PostService", () => {
       postService.update(fakeId, fakePosts[0]);
       expect(fakePostRepository.update).toHaveBeenCalled();
     });
-    // it("should send an error message in catch sentence", async () => {
-    //   jest.spyOn(fakePostRepository, "update").mockRejectedValueOnce("Error");
-    //   const post = await postService.update(fakeId, fakePosts[0]);
-    //   expect(post).toEqual({
-    //     promiseError: { error: "Error", message: "Promise Error" },
-    //   });
-    // });
+    it("should not find a post if the id does not exist", async () => {
+      const post = await postService.update('wrongId');
+      expect(post).toEqual({ validationError: {
+      message: `Post with id wrongId does not exist`,
+      status: 404,
+        },
+      });
+    });
+    it("should send an error message in catch sentence", async () => {
+      jest.spyOn(fakePostRepository, "update").mockImplementationOnce(() => { throw new Error("Error") });
+      const post = await postService.update(1, fakePosts[0]);
+      console.log('---->', post);
+      expect(post).toEqual({
+        promiseError: { message: "Error", status: 500 },
+      });
+    });
   });
 
   describe("delete", () => {
@@ -111,12 +135,21 @@ describe("PostService", () => {
       postService.delete(fakeId);
       expect(fakePostRepository.delete).toHaveBeenCalled();
     });
-    // it("should send an error message in catch sentence", async () => {
-    //   jest.spyOn(fakePostRepository, "delete").mockRejectedValueOnce("Error");
-    //   const post = await postService.delete(fakeId);
-    //   expect(post).toEqual({
-    //     promiseError: { error: "Error", message: "Promise Error" },
-    //   });
-    // });
+    it("should not find a post if the id does not exist", async () => {
+      const post = await postService.delete('wrongId');
+      expect(post).toEqual({ validationError: {
+      message: `Post with id wrongId does not exist`,
+      status: 404,
+        },
+      });
+    });
+    it("should send an error message in catch sentence", async () => {
+      jest.spyOn(fakePostRepository, "delete").mockImplementationOnce(() => { throw new Error("Error") });
+      const post = await postService.delete(1);
+      console.log('---->', post);
+      expect(post).toEqual({
+        promiseError: { message: "Error", status: 500 },
+      });
+    });
   });
 });

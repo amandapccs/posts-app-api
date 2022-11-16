@@ -1,6 +1,6 @@
-const { StatusCode } = require("./../../utils/status.code");
+import { StatusCode } from "./../../utils/status.code";
 
-function validateTitle(title) {
+function validateTitle(title: string) {
   if (!title || title === '') {
     return {
       validationError: {
@@ -31,7 +31,7 @@ function validateTitle(title) {
   return false;
 }
 
-function validateContent(content) {
+function validateContent(content: string) {
   if (!content) {
     return {
       validationError: {
@@ -62,7 +62,7 @@ function validateContent(content) {
   return false;
 }
 
-function invalidPostId(id) {
+function invalidPostId(id: string) {
   return {
     validationError: {
       message: `Post with id ${id} does not exist`,
@@ -71,7 +71,7 @@ function invalidPostId(id) {
   };
 };
 
-function validatePost(post) {
+function validatePost(post: any) {
   const titleError = validateTitle(post.title);
   const contentError = validateContent(post.content);
   if (titleError) return titleError;
@@ -80,7 +80,7 @@ function validatePost(post) {
   return false;
 };
 
-function promisePostError(error) {
+function promisePostError(error: any) {
   return {
     promiseError: {
       message: error.message,

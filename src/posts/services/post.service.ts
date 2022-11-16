@@ -1,8 +1,10 @@
+import { IRepository, Post, PostWithDates } from '../interfaces';
 const { Types } = require('mongoose');
 const { invalidPostId, promisePostError, validatePost } = require('./../middlewares/post.validation');
 
-class PostService {
-  constructor(repository) {
+export class PostService {
+  public repository: IRepository;
+  constructor(repository: IRepository) {
     this.repository = repository;
   }
 
@@ -15,7 +17,7 @@ class PostService {
     }
   }
 
-  async getById(id) {
+  async getById(id: string) {
     if (!Types.ObjectId.isValid(id)) {
       return invalidPostId(id);
     }
@@ -28,7 +30,7 @@ class PostService {
     }
   }
 
-  async create(post) {
+  async create(post: Post) {
     try {
       const validatedPost = validatePost(post);
       if (validatedPost) return validatedPost;
@@ -40,7 +42,7 @@ class PostService {
     }
   }
 
-  async update(id, post) {
+  async update(id: string, post: Post) {
     if (!Types.ObjectId.isValid(id)) {
       return invalidPostId(id);
     }
@@ -56,7 +58,7 @@ class PostService {
     }
   }
 
-  async delete(id) {
+  async delete(id: string) {
     if (!Types.ObjectId.isValid(id)) {
       return invalidPostId(id);
     }
@@ -69,5 +71,3 @@ class PostService {
     }
   }
 }
-
-module.exports = { PostService };

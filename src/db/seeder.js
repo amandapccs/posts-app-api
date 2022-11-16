@@ -1,6 +1,8 @@
-const { PostModel } = require('./../posts/models/post.model');
+// const { PostModel } = require('./../posts/models/post.model');
+// const mongoose = require('mongoose');
+import { PostModel } from './../posts/models/post.model';
 require('dotenv').config();
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 async function seed() {
   await mongoose.connect(process.env.MONGO, {

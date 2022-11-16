@@ -1,4 +1,4 @@
-function isJson(obj) {
+export function isJson(obj: any) {
     try {
         JSON.parse(obj);
     } catch (e) {
@@ -6,5 +6,3 @@ function isJson(obj) {
     }
     return true;
 }
-
-module.exports = { isJson };

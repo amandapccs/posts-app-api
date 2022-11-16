@@ -1,4 +1,4 @@
-class StatusCode {
+export class StatusCode {
     static OK = 200;
     static CREATED = 201;
     static NO_CONTENT = 204;
@@ -17,5 +17,3 @@ class StatusCode {
         }
     }
 }
-
-module.exports = { StatusCode };
